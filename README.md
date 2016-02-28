@@ -9,8 +9,17 @@ pip install dashifest
 ```bash
 from dashifest import MediaPresentationDescription
 
-mpd = MediaPresentationDescription(profiles='urn:mpeg:dash:profile:isoff-on-demand:2011', minimum_buffer_time=1)
-mpd.to_xml()
+mpd = MediaPresentationDescription(profile='urn:mpeg:dash:profile:isoff-on-demand:2011',
+                                   minimum_buffer_time=1)
+
+print mpd.to_xml()
+```
+
+```xml
+<?xml version='1.0' encoding='UTF-8'?>
+<MPD xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:mpeg:DASH:schema:MPD:2011"
+     minBufferTime="PT1S" profiles="urn:mpeg:dash:profile:isoff-on-demand:2011"
+     xsi:schemaLocation="urn:mpeg:DASH:schema:MPD:2011 DASH-MPD.xsd" type="static"/>'
 ```
 
 #### Development
