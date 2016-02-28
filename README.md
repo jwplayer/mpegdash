@@ -46,3 +46,11 @@ execute only benchmarking tests
 ```bash
 python setup.py test --addopts '--benchmark-only'
 ```
+
+#### Benchmarks
+
+```bash
+python setup.py test --addopts './tests/benchmark/'
+```
+
+![python setup.py test --addopts './tests/benchmark/'](http://i.imgur.com/BzouoGR.png)
