@@ -1,0 +1,4 @@
+lxml==3.5.0
+isodate==0.5.4
+pytest==2.8.7
+pytest-benchmark==3.0.0
