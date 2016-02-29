@@ -7,14 +7,14 @@ from isodate import duration_isoformat
 from lxml import etree
 
 from tests import is_instance_method
-from dashifest import MediaPresentationDescription, Period
+from mpegdash.mpd import MPD
+from mpegdash.period import Period
 
 
 class MPDPeriodsRelationshipTest(unittest.TestCase):
 
     def setUp(self):
-        self.mpd = MediaPresentationDescription(profile='urn:mpeg:dash:profile:isoff-on-demand:2011',
-                                                minimum_buffer_time=1)
+        self.mpd = MPD(profile='urn:mpeg:dash:profile:isoff-on-demand:2011', minimum_buffer_time=1)
 
     def test_mpd_periods_relationship(self):
         assert is_instance_method(self.mpd.periods)
@@ -32,7 +32,7 @@ class MPDPeriodsRelationshipTest(unittest.TestCase):
         period_duration = 47.175
         period = Period(period_id='0', start=period_start, duration=period_duration)
         self.mpd.add_period(period)
-        xml = etree.fromstring(str(self.mpd.to_xml()))
+        xml = etree.fromstring(self.mpd.to_xml())
         assert len(xml.getchildren()) > 0
         period_element = xml.getchildren()[0]
         assert period_element.attrib.get('id') == '0'
