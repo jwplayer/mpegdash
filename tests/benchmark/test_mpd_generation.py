@@ -3,7 +3,8 @@
 import time
 import pytest
 
-from dashifest import MediaPresentationDescription, Period
+from mpegdash.mpd import MPD
+from mpegdash.period import Period
 
 
 @pytest.mark.benchmark(
@@ -18,7 +19,7 @@ from dashifest import MediaPresentationDescription, Period
 def test_mpd_with_1_period(benchmark):
     @benchmark
     def result():
-        mpd = MediaPresentationDescription(profile='urn:mpeg:dash:profile:isoff-on-demand:2011', minimum_buffer_time=1)
+        mpd = MPD(profile='urn:mpeg:dash:profile:isoff-on-demand:2011', minimum_buffer_time=1)
         mpd.add_period(Period(start=0, duration=10))
         return mpd.to_xml()
 
@@ -37,7 +38,7 @@ def test_mpd_with_1_period(benchmark):
 def test_mpd_with_10_periods(benchmark):
     @benchmark
     def result():
-        mpd = MediaPresentationDescription(profile='urn:mpeg:dash:profile:isoff-on-demand:2011', minimum_buffer_time=1)
+        mpd = MPD(profile='urn:mpeg:dash:profile:isoff-on-demand:2011', minimum_buffer_time=1)
         [mpd.add_period(Period(start=0, duration=10)) for _ in range(0, 10)]
         return mpd.to_xml()
 
@@ -56,7 +57,7 @@ def test_mpd_with_10_periods(benchmark):
 def test_mpd_with_100_periods(benchmark):
     @benchmark
     def result():
-        mpd = MediaPresentationDescription(profile='urn:mpeg:dash:profile:isoff-on-demand:2011', minimum_buffer_time=1)
+        mpd = MPD(profile='urn:mpeg:dash:profile:isoff-on-demand:2011', minimum_buffer_time=1)
         [mpd.add_period(Period(start=0, duration=10)) for _ in range(0, 100)]
         return mpd.to_xml()
 

@@ -8,7 +8,7 @@ def readme():
         return f.read()
 
 
-setup(name='dashifest',
+setup(name='mpegdash',
       version='0.1',
       description='MPEG-DASH manifest generation and validation',
       long_description=readme(),
@@ -18,13 +18,13 @@ setup(name='dashifest',
           'Programming Language :: Python :: 2.7',
           'Topic :: Multimedia :: Sound/Audio :: Conversion',
       ],
-      keywords='dash mpeg-dash mpd manifest .mpd generator xml dashifest',
-      url='http://github.com/pinge/dashifest',
+      keywords='dash mpeg-dash mpd manifest .mpd generator xml mpegdash',
+      url='http://github.com/pinge/mpegdash',
       author='Nuno Pinge',
       author_email='nuno@pinge.org',
       license='MIT',
       packages=[
-          'dashifest'
+          'mpegdash'
       ],
       setup_requires=[
           'pytest-runner',
