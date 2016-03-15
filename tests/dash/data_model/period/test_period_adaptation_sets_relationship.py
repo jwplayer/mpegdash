@@ -19,14 +19,14 @@ class PeriodAdaptationSetsRelationshipTest(unittest.TestCase):
         assert self.period.adaptation_sets() == []
 
     def test_period_add_adaptation_set_with_degenerate_input(self):
-        assert is_instance_method(self.period.add_adaptation_set)
-        self.assertRaises(TypeError, self.period.add_adaptation_set, None)
-        self.assertRaises(TypeError, self.period.add_adaptation_set, '')
-        self.assertRaises(TypeError, self.period.add_adaptation_set, 0)
-        self.assertRaises(TypeError, self.period.add_adaptation_set, 0.0)
+        assert is_instance_method(self.period.append_adaptation_set)
+        self.assertRaises(TypeError, self.period.append_adaptation_set, None)
+        self.assertRaises(TypeError, self.period.append_adaptation_set, '')
+        self.assertRaises(TypeError, self.period.append_adaptation_set, 0)
+        self.assertRaises(TypeError, self.period.append_adaptation_set, 0.0)
 
     def test_period_add_single_adaptation_Set(self):
         adaptation_set = AdaptationSet()
-        self.period.add_adaptation_set(adaptation_set)
+        self.period.append_adaptation_set(adaptation_set)
         xml = etree.fromstring(self.period.to_xml())
         assert len(xml.getchildren()) > 0

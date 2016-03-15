@@ -44,6 +44,7 @@ class PeriodSpecTest(unittest.TestCase):
     """
 
     def test_period_spec(self):
-        period = Period(period_id='0', start=None, duration=None)
+        period = Period(id='0', start=None, duration=None)
         print period
+        raise NotImplemented
 
