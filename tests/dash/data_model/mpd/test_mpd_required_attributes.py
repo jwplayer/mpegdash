@@ -16,7 +16,7 @@ MINIMUM_BUFFER_TIME = 1
 class MPDXMLSerializationTest(unittest.TestCase):
 
     def setUp(self):
-        self.mpd = MPD(profile=DASH_PROFILE, minimum_buffer_time=MINIMUM_BUFFER_TIME)
+        self.mpd = MPD(profiles=DASH_PROFILE, min_buffer_time=MINIMUM_BUFFER_TIME)
         self.xml = etree.fromstring(str(self.mpd.to_xml()))
 
     def test_mpd_node_required_attributes(self):

@@ -16,12 +16,12 @@ class XMLSerializer(Serializer):
     ATTRIBUTES_VALIDATION = {
         'MPD': {
             'profiles': [
-                'urn:mpeg:dash:profile:full:2011',
+                # 'urn:mpeg:dash:profile:full:2011',
                 'urn:mpeg:dash:profile:isoff-on-demand:2011',
-                'urn:mpeg:dash:profile:isoff-live:2011',
-                'urn:mpeg:dash:profile:isoff-main:2011',
-                'urn:mpeg:dash:profile:mp2t-main:2011',
-                'urn:mpeg:dash:profile:mp2t-simple:2011'
+                # 'urn:mpeg:dash:profile:isoff-live:2011',
+                # 'urn:mpeg:dash:profile:isoff-main:2011',
+                # 'urn:mpeg:dash:profile:mp2t-main:2011',
+                # 'urn:mpeg:dash:profile:mp2t-simple:2011'
             ]
         }
     }

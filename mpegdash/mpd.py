@@ -1,82 +1,54 @@
 # -*- coding: utf-8 -*-
 
-from datetime import timedelta
-
-from lxml import etree
-import isodate
-
 import mpegdash
 import mpegdash.period
-
-
-def set_duration(self):
-    if self.duration:
-        duration = isodate.duration_isoformat(timedelta(seconds=self.duration))
-        self.element.attrib['mediaPresentationDuration'] = duration
-
-
-def force_static_type(self):
-    self.element.attrib['type'] = 'static'
-
-
-def force_dynamic_type(self):
-    self.element.attrib['type'] = 'dynamic'
 
 
 class MPD(mpegdash.DASHModel):
 
     TAG = 'MPD'
 
-    MPD_XML_NAMESPACE = 'urn:mpeg:DASH:schema:MPD:2011'
-    XML_SCHEMA_INSTANCE = 'http://www.w3.org/2001/XMLSchema-instance'
-    XML_SCHEMA_INSTANCE_SCHEMA_LOCATION = 'urn:mpeg:DASH:schema:MPD:2011 DASH-MPD.xsd'
-
-    PROFILE_RULES = {
-        None: [
-            set_duration
-        ],
-        'urn:mpeg:dash:profile:isoff-on-demand:2011': [
-            force_static_type
-        ],
-        'urn:mpeg:dash:profile:isoff-live:2011': [
-            force_dynamic_type
-        ]
-    }
-
-    def __init__(self, profile=None, minimum_buffer_time=None, duration=None):
-        super(MPD, self).__init__(profile=profile)
-        if minimum_buffer_time is None or not isinstance(minimum_buffer_time, int):
+    def __init__(self, profiles, min_buffer_time, type=u'static', media_presentation_duration=None):
+        super(MPD, self).__init__()
+        if min_buffer_time is None or not isinstance(min_buffer_time, int):
             raise TypeError('MPD: minimum buffer time should be an integer')
-        self.minimum_buffer_time = minimum_buffer_time
-        self.duration = duration
+        self.set_attribute('profiles', profiles)
+        self.set_attribute('minBufferTime', min_buffer_time)
+        self.set_attribute('type', type)
+        self.set_attribute('mediaPresentationDuration', media_presentation_duration)
         self._periods = []
+
+    @property
+    def profiles(self):
+        if 'profiles' in self._attributes:
+            return self._attributes.get('profiles')
+        return None
 
     def periods(self):
         return self._periods
 
-    def set_duration(self, seconds=None):
-        if seconds is None:
-            raise TypeError('MPD.set_duration: invalid seconds value')
-        self.duration = seconds
-
-    def add_period(self, period):
+    def append_period(self, period):
         if not isinstance(period, mpegdash.period.Period):
-            raise TypeError('MPD.add_period: invalid period')
+            raise TypeError('MPD: add_period(): invalid period')
         self._periods.append(period)
+        self._xml_append_element(period._xml_element)
 
-    def __lxml__(self):
-        if self.element is None:
-            min_buffer_duration = timedelta(seconds=self.minimum_buffer_time)
-            schema_location_attrib = '{{{}}}schemaLocation'.format(MPD.XML_SCHEMA_INSTANCE)
-            attributes = {
-                schema_location_attrib: MPD.XML_SCHEMA_INSTANCE_SCHEMA_LOCATION,
-                'profiles': self.profile,
-                'minBufferTime': isodate.duration_isoformat(min_buffer_duration)
-            }
-            nsmap = {
-                None: MPD.MPD_XML_NAMESPACE,
-                'xsi': MPD.XML_SCHEMA_INSTANCE
-            }
-            self.element = etree.Element(self.__class__.TAG, nsmap=nsmap, attrib=attributes)
-            [self.element.append(period.__lxml__().element) for period in self.periods()]
-        return super(MPD, self).__lxml__()
+    def apply_profile_rules(self):
+        if self.profiles == 'urn:mpeg:dash:profile:isoff-on-demand:2011':
+            self.set_attribute('type', 'static')
+
+    def to_xml(self, xml_declaration=False, encoding='UTF-8', pretty_print=False):
+        return super(MPD, self).to_xml(xml_declaration=True, encoding=encoding, pretty_print=pretty_print)
+
+    def _xml_initialize_element(self, tag=None, nsmap=None, attributes=None):
+        xml_schema_instance = 'http://www.w3.org/2001/XMLSchema-instance'
+        xml_schema_instance_schema_location = 'urn:mpeg:DASH:schema:MPD:2011 DASH-MPD.xsd'
+        nsmap = {
+            None: 'urn:mpeg:DASH:schema:MPD:2011',
+            'xsi': xml_schema_instance
+        }
+        schema_location_attribute_name = '{{{}}}schemaLocation'.format(xml_schema_instance)
+        attributes = {
+            schema_location_attribute_name: xml_schema_instance_schema_location
+        }
+        super(MPD, self)._xml_initialize_element(tag, nsmap, attributes)
