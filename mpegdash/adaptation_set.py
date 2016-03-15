@@ -1,28 +1,31 @@
 # -*- coding: utf-8 -*-
 
-from mpegdash import DASHModel
+import mpegdash
+import mpegdash.representation
 
 
-class AdaptationSet(DASHModel):
+class AdaptationSet(mpegdash.DASHModel):
 
     TAG = 'AdaptationSet'
 
-    def __init__(self, profile=None, period=None, adaptation_set_id=None):
-        super(AdaptationSet, self).__init__(profile=profile)
-        self.period = period
-        self.adaptation_set_id = adaptation_set_id
+    def __init__(self, id=None, mime_type=None, codecs=None, lang=None, bitstream_switching=None,
+                 subsegment_alignment=None, subsegment_starts_with_sap=None, audio_sampling_rate=None):
+        super(AdaptationSet, self).__init__()
+        self.set_attribute('id', id)
+        self.set_attribute('mimeType', mime_type)
+        self.set_attribute('codecs', codecs)
+        self.set_attribute('lang', lang)
+        self.set_attribute('bitstreamSwitching', bitstream_switching)
+        self.set_attribute('subsegmentAlignment', subsegment_alignment)
+        self.set_attribute('subsegmentStartsWithSAP', subsegment_starts_with_sap)
+        self.set_attribute('audioSamplingRate', audio_sampling_rate)
+        self._representations = []
 
-    def __lxml__(self):
-        super(AdaptationSet, self).__lxml__()
-        if self.adaptation_set_id:
-            self.element.attrib['id'] = str(self.adaptation_set_id)
-        else:
-            print '!!!!!!!!'
-            print self.element.getparent()
-            if self.element.getparent():
-                print '1111123131'
-                print self.element.getparent().index(self.element)
-            else:
-                self.element.attrib['id'] = 'x'
-        return self
+    def representations(self):
+        return self._representations
 
+    def append_representation(self, representation):
+        if not isinstance(representation, mpegdash.representation.Representation):
+            raise TypeError('AdaptationSet: add_representation(): invalid representation')
+        self._representations.append(representation)
+        self._xml_append_element(representation._xml_element)
