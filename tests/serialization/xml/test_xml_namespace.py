@@ -6,16 +6,15 @@ from lxml import etree
 
 from mpegdash.mpd import MPD
 
-
 XML_SCHEMA_INSTANCE = 'http://www.w3.org/2001/XMLSchema-instance'
-DASH_PROFILE = 'urn:mpeg:dash:profile:isoff-on-demand:2011'
+DEFAULT_DASH_PROFILE = 'urn:mpeg:dash:profile:isoff-on-demand:2011'
 MINIMUM_BUFFER_TIME = 1
 
 
 class MPDXMLNamespace(unittest.TestCase):
 
     def setUp(self):
-        self.mpd = MPD(profile=DASH_PROFILE, minimum_buffer_time=MINIMUM_BUFFER_TIME)
+        self.mpd = MPD(profiles=DEFAULT_DASH_PROFILE, min_buffer_time=MINIMUM_BUFFER_TIME)
         self.xml = etree.fromstring(str(self.mpd.to_xml()))
 
     def test_mpd_xml_schema_instance(self):
