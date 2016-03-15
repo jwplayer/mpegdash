@@ -6,12 +6,7 @@ from lxml import etree
 import isodate
 
 
-class Serializer(object):
-
-    pass
-
-
-class XMLSerializer(Serializer):
+class XMLSerializer(object):
 
     ATTRIBUTES_VALIDATION = {
         'MPD': {
