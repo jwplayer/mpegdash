@@ -3,9 +3,7 @@
 import unittest
 import inspect
 
-from mpegdash.serialization import Serializer, XMLSerializer
-
-DEFAULT_DASH_PROFILE = 'urn:mpeg:dash:profile:isoff-on-demand:2011'
+from mpegdash.serialization import XMLSerializer
 
 
 class Serializable(XMLSerializer):
@@ -16,7 +14,7 @@ class Serializable(XMLSerializer):
 class XMLSerializerTest(unittest.TestCase):
 
     def test_xml_serializer_class(self):
-        assert issubclass(XMLSerializer, Serializer)
+        assert issubclass(XMLSerializer, object)
 
     def test_xml_serializer_mixin(self):
         self.assertRaises(AttributeError, XMLSerializer)
