@@ -43,8 +43,7 @@ class PeriodSpecTest(unittest.TestCase):
 
     """
 
+    @unittest.skip("Period spec not covered")
     def test_period_spec(self):
         period = Period(id='0', start=None, duration=None)
-        print period
-        raise NotImplemented
 
