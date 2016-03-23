@@ -9,7 +9,7 @@ def readme():
 
 
 setup(name='mpegdash',
-      version='0.1',
+      version='0.1.0',
       description='MPEG-DASH manifest generation and validation',
       long_description=readme(),
       classifiers=[
