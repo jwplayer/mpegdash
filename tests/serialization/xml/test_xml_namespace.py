@@ -23,8 +23,8 @@ class MPDXMLNamespace(unittest.TestCase):
 
     def test_mpd_xml_namespace(self):
         assert None in self.xml.nsmap
-        assert self.xml.nsmap.get(None) == 'urn:mpeg:DASH:schema:MPD:2011'
+        assert self.xml.nsmap.get(None) == 'urn:mpeg:dash:schema:mpd:2011'
 
         xsi_schema_location_attrib = '{{{}}}schemaLocation'.format(XML_SCHEMA_INSTANCE)
         assert xsi_schema_location_attrib in self.xml.attrib
-        assert self.xml.attrib.get(xsi_schema_location_attrib) == 'urn:mpeg:DASH:schema:MPD:2011 DASH-MPD.xsd'
+        assert self.xml.attrib.get(xsi_schema_location_attrib) == 'urn:mpeg:dash:schema:mpd:2011 DASH-MPD.xsd'

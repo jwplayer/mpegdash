@@ -42,9 +42,9 @@ class MPD(mpegdash.DASHModel):
 
     def _xml_initialize_element(self, tag=None, nsmap=None, attributes=None):
         xml_schema_instance = 'http://www.w3.org/2001/XMLSchema-instance'
-        xml_schema_instance_schema_location = 'urn:mpeg:DASH:schema:MPD:2011 DASH-MPD.xsd'
+        xml_schema_instance_schema_location = 'urn:mpeg:dash:schema:mpd:2011 DASH-MPD.xsd'
         nsmap = {
-            None: 'urn:mpeg:DASH:schema:MPD:2011',
+            None: 'urn:mpeg:dash:schema:mpd:2011',
             'xsi': xml_schema_instance
         }
         schema_location_attribute_name = '{{{}}}schemaLocation'.format(xml_schema_instance)
