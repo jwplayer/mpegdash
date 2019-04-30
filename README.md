@@ -10,11 +10,11 @@ pip install mpegdash
 from mpegdash.mpd import MPD
 from mpegdash.period import Period
 
-mpd = MPD(profile='urn:mpeg:dash:profile:isoff-on-demand:2011', minimum_buffer_time=1)
-                                   
-period = Period(period_id='0', start=0, duration=47.175)
+mpd = MPD(profiles='urn:mpeg:dash:profile:isoff-on-demand:2011', min_buffer_time=1)
 
-mpd.add_period(period)
+period = Period(id='0', start=0, duration=47.175)
+
+mpd.append_period(period)
 
 print mpd.to_xml()
 ```
