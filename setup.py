@@ -34,7 +34,7 @@ setup(name='mpegdash',
           'pytest-benchmark==3.0.0'
       ],
       install_requires=[
-          'lxml==3.5.0',
+          'lxml==4.6.2',
           'isodate==0.5.4'
       ],
       include_package_data=True,
