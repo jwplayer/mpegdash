@@ -30,7 +30,7 @@ setup(name='mpegdash',
           'pytest-runner',
       ],
       tests_require=[
-          'pytest==2.8.7',
+          'pytest==9.0.3',
           'pytest-benchmark==3.0.0'
       ],
       install_requires=[
